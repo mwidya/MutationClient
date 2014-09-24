@@ -50,10 +50,10 @@ void ofApp::setup(){
     
     
     
-    offsetZ = 0.0f;//-800.0f*factor;
+    offsetZ = 0.0f;
     
     plane.set(width, height);
-    plane.setPosition(width*.5f, height*.5f, offsetZ);
+    plane.setPosition(width*.5f, height*.5f, 0);
     material.setShininess( 120 );
 	material.setSpecularColor(ofColor(0, 0, 0, 255));
     
@@ -62,7 +62,7 @@ void ofApp::setup(){
     pointLight.setSpecularColor( ofFloatColor(18.f/255.f,150.f/255.f,135.f/255.f));
     
     
-    
+    ofSetVerticalSync(true);
     setupTcp();
     
 }
@@ -81,7 +81,8 @@ void ofApp::update(){
         
         if( str.length() > 0 )
         {
-            
+            cout << "str = " << str << endl;
+            offsetZ = ofToFloat(str);
 //            parseJSONString(str);
         }
     }
@@ -105,14 +106,12 @@ void ofApp::draw(){
     ofEnableDepthTest();
     ofEnableLighting();
     
-    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
+    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z);
     pointLight.setPosition(plane.getPosition().x,
                            plane.getPosition().y,
-                           plane.getPosition().z + sin(ofGetElapsedTimef()*.5f)*plane.getHeight()*1.5 + offsetZ);
+                           plane.getPosition().z + sin(offsetZ*.5f)*plane.getHeight()*1.5);
     pointLight.lookAt(plane);
     pointLight.enable();
-    
-    offsetZ = 0.0f;
     
 //    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
     

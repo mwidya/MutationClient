@@ -10,9 +10,8 @@
 #define __Mutation_080__constants__
 
 
-//#define IP "169.254.102.35"
-#define IP "127.0.0.1"
-//#define IP "10.0.0.9"
+//#define IP "127.0.0.1"
+#define IP "10.0.0.1"
 #define PORT 12333
 
 
