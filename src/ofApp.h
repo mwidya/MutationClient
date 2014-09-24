@@ -37,4 +37,5 @@ public:
     float offsetZ;
     ofPlanePrimitive plane;
     ofMaterial material;
+    ofLight pointLight;
 };

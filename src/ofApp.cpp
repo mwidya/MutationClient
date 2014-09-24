@@ -59,6 +59,10 @@ void ofApp::setup(){
     plane.setPosition(width*.5f, height*.5f, offsetZ);
     material.setShininess( 120 );
 	material.setSpecularColor(ofColor(0, 0, 0, 255));
+    
+//    ofSetSmoothLighting(true);
+    pointLight.setDiffuseColor( ofFloatColor(19.f/255.f,94.f/255.f,77.f/255.f)  );
+    pointLight.setSpecularColor( ofFloatColor(18.f/255.f,150.f/255.f,135.f/255.f));
 }
 
 //--------------------------------------------------------------
@@ -76,9 +80,15 @@ void ofApp::draw(){
     ofEnableLighting();
     
     plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
+    pointLight.setPosition(plane.getPosition().x,
+                           plane.getPosition().y,
+                           plane.getPosition().z + sin(ofGetElapsedTimef()*.5f)*plane.getHeight()*1.5 + offsetZ);
+    pointLight.lookAt(plane);
+    pointLight.enable();
+    
     offsetZ = 0.0f;
     
-    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
+//    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
     
 	material.begin();
     
