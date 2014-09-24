@@ -1,0 +1,5 @@
+ofxNetwork
+ofxOsc
+ofxXmlSettings
+ofxJSON
+ofxSyphon
