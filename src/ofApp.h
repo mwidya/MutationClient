@@ -9,7 +9,6 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
-    void drawMarker();
     void draw();
     void writeSettings();
     void keyPressed(int key);
@@ -29,6 +28,13 @@ public:
     float markerWidth;
     float markerHeight;
     
+    
+    
     ofTrueTypeFont font;
-		
+	
+	
+    
+    float offsetZ;
+    ofPlanePrimitive plane;
+    ofMaterial material;
 };

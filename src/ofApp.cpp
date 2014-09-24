@@ -50,8 +50,15 @@ void ofApp::setup(){
     
     
     
-    
     font.loadFont("vag.ttf", 30);
+    
+    
+    offsetZ = 0.0f;//-800.0f*factor;
+    
+    plane.set(width, height);
+    plane.setPosition(width*.5f, height*.5f, offsetZ);
+    material.setShininess( 120 );
+	material.setSpecularColor(ofColor(0, 0, 0, 255));
 }
 
 //--------------------------------------------------------------
@@ -59,26 +66,52 @@ void ofApp::update(){
 
 }
 
-void ofApp::drawMarker(){
-    ofSetColor(255, 255, 255);
-    float frame = 80*factor;
-    ofRect(markerX-(frame/2), markerY-(frame/2), markerWidth+frame, markerHeight+frame);
-    markerImage.draw(markerX, markerY, markerWidth, markerHeight);
-}
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    ofDrawBitmapString("framerate: " + ofToString(ofGetFrameRate()), ofGetWidth()-140, 10);
+    ofClear(0);
     
-    font.drawString("Syphon Server: " + syphonName, 0, height);
+    ofEnableDepthTest();
+    ofEnableLighting();
     
-    drawMarker();
+    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
+    offsetZ = 0.0f;
+    
+    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
+    
+	material.begin();
+    
+    ofFill();
+    ofSetColor(255);
+    plane.draw();
+    
+    material.end();
+    
+    ofDisableLighting();
+    ofDisableDepthTest();
+    ofFill();
+    
+    
+    
+    
+    
+    
+    ofSetColor(255, 255, 255);
+    float frame = 80*factor;
+    ofRect(markerX-(frame/2), markerY-(frame/2), markerWidth+frame, markerHeight+frame);
+    markerImage.draw(markerX, markerY, markerWidth, markerHeight);
+    
+    
     
     
     
     
     syphonServer.publishScreen();
+    
+    ofDrawBitmapString("framerate: " + ofToString(ofGetFrameRate()), ofGetWidth()-140, 10);
+    
+    font.drawString("Syphon Server: " + syphonName, 0, height);
 
 }
 

@@ -59,7 +59,6 @@
 		EE89810019D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE8980F319D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm */; };
 		EE89810A19D2D25E00E4F0B6 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE8980CE19D2D23300E4F0B6 /* Syphon.framework */; };
 		EE89811019D2D4FE00E4F0B6 /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89810E19D2D4FE00E4F0B6 /* constants.cpp */; };
-		EE89811A19D2DBCB00E4F0B6 /* marker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89811819D2DBCB00E4F0B6 /* marker.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,8 +187,6 @@
 		EE8980F319D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
 		EE89810E19D2D4FE00E4F0B6 /* constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
 		EE89810F19D2D4FE00E4F0B6 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		EE89811819D2DBCB00E4F0B6 /* marker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marker.cpp; sourceTree = "<group>"; };
-		EE89811919D2DBCB00E4F0B6 /* marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marker.h; sourceTree = "<group>"; };
 		EFDDF1A86CE5C1107EFF3873 /* json_tool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = json_tool.h; path = ../../../addons/ofxJSON/libs/jsoncpp/src/json_tool.h; sourceTree = SOURCE_ROOT; };
 		F2B099E6BD1199664C48B177 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxJSONElement.cpp; path = ../../../addons/ofxJSON/src/ofxJSONElement.cpp; sourceTree = SOURCE_ROOT; };
 		F399B91E98DC31CDA6DDACB4 /* ofxTCPManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTCPManager.cpp; path = ../../../addons/ofxNetwork/src/ofxTCPManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -501,7 +498,6 @@
 			children = (
 				EE89811B19D2DBEE00E4F0B6 /* Helper */,
 				EE89811C19D2DBF700E4F0B6 /* Main */,
-				EE89811D19D2DBFE00E4F0B6 /* Boards */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -607,15 +603,6 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 			);
 			name = Main;
-			sourceTree = "<group>";
-		};
-		EE89811D19D2DBFE00E4F0B6 /* Boards */ = {
-			isa = PBXGroup;
-			children = (
-				EE89811819D2DBCB00E4F0B6 /* marker.cpp */,
-				EE89811919D2DBCB00E4F0B6 /* marker.h */,
-			);
-			name = Boards;
 			sourceTree = "<group>";
 		};
 		F40E80CB2D443CBA9581DD03 /* libs */ = {
@@ -743,7 +730,6 @@
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
-				EE89811A19D2DBCB00E4F0B6 /* marker.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				A29D8C96AE042ECEAA1BD4F3 /* NetworkingUtilsWin.cpp in Sources */,
 				28090DEB5109115003E8F1C5 /* UdpSocketWin.cpp in Sources */,
