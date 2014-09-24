@@ -8,9 +8,14 @@
 
 #include "constants.h"
 
+//#define IP "169.254.102.35"
+//#define IP "127.0.0.1"
+#define IP "10.0.0.9"
+#define PORT 12333
+
 //const float factor = 0.1f;
-const float factor = 0.2f; // stutter free
-// 1.0 = 1 meter
+const float factor = 0.2f;
+
 const float levelDistance = 3000*factor;
 const float f0f1Distance = 2150*factor;
 const float f3f4Distance = 8600*factor;
@@ -41,6 +46,8 @@ const float f9Short = 1700*factor;
 const float surfacesLong[10] = {f0Long, f1Long, f2Long, f3Long, f4Long, f5Long, f6Long, f7Long, f8Long, f9Long};
 const float surfacesShort[10] = {f0Short, f1Short, f2Short, f3Short, f4Short, f5Short, f6Short, f7Short, f8Short, f9Short};
 
+const float markerIds[10] = {691, 268, 581, 761, 528, 286, 484, 99, 222, 903};
+
 const float f0MarkerWidth = 700*factor;
 const float f0MarkerHeight = 700*factor;
 const float f1MarkerWidth = 700*factor;
@@ -62,6 +69,9 @@ const float f8MarkerHeight = 700*factor;
 const float f9MarkerWidth = 700*factor;
 const float f9MarkerHeight = 700*factor;
 
+const float markerWidths[10] = {f0MarkerWidth, f1MarkerWidth, f2MarkerWidth, f3MarkerWidth, f4MarkerWidth, f5MarkerWidth, f6MarkerWidth, f7MarkerWidth, f8MarkerWidth, f9MarkerWidth};
+const float markerHeights[10] = {f0MarkerHeight, f1MarkerHeight, f2MarkerHeight, f3MarkerHeight, f4MarkerHeight, f5MarkerHeight, f6MarkerHeight, f7MarkerHeight, f8MarkerHeight, f9MarkerHeight};
+
 const float f0MarkerX = 100*factor;
 const float f0MarkerY = 100*factor;
 const float f1MarkerX = 100*factor;
@@ -82,3 +92,11 @@ const float f8MarkerX = 100*factor;
 const float f8MarkerY = 100*factor;
 const float f9MarkerX = 100*factor;
 const float f9MarkerY = 100*factor;
+
+const float markerXs[10] = {f0MarkerX, f1MarkerX, f2MarkerX, f3MarkerX, f4MarkerX, f5MarkerX, f6MarkerX, f7MarkerX, f8MarkerX, f9MarkerX};
+const float markerYs[10] = {f0MarkerY, f1MarkerY, f2MarkerY, f3MarkerY, f4MarkerY, f5MarkerY, f6MarkerY, f7MarkerY, f8MarkerY, f9MarkerY};
+
+
+
+
+

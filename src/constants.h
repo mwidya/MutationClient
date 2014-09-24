@@ -9,14 +9,6 @@
 #ifndef __Mutation_080__constants__
 #define __Mutation_080__constants__
 
-//#define IP "169.254.102.35"
-//#define IP "127.0.0.1"
-#define IP "10.0.0.9"
-#define PORT 12333
-
-#define START_CHANNEL 8
-#define START_BOARD 5
-
 extern const float factor;
 // 1.0 = 1 meter
 extern const float levelDistance;
@@ -49,6 +41,8 @@ extern const float f9Short;
 extern const float surfacesLong[10];
 extern const float surfacesShort[10];
 
+extern const float markerIds[10];
+
 extern const float f0MarkerWidth;
 extern const float f0MarkerHeight;
 extern const float f1MarkerWidth;
@@ -70,6 +64,9 @@ extern const float f8MarkerHeight;
 extern const float f9MarkerWidth;
 extern const float f9MarkerHeight;
 
+extern const float markerWidths[10];
+extern const float markerHeights[10];
+
 extern const float f0MarkerX;
 extern const float f0MarkerY;
 extern const float f1MarkerX;
@@ -90,5 +87,9 @@ extern const float f8MarkerX;
 extern const float f8MarkerY;
 extern const float f9MarkerX;
 extern const float f9MarkerY;
+
+extern const float markerXs[10];
+extern const float markerYs[10];
+
 
 #endif /* defined(__Mutation_080__constants__) */

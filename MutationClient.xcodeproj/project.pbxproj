@@ -499,9 +499,9 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				EE89811D19D2DBFE00E4F0B6 /* Boards */,
-				EE89811C19D2DBF700E4F0B6 /* Main */,
 				EE89811B19D2DBEE00E4F0B6 /* Helper */,
+				EE89811C19D2DBF700E4F0B6 /* Main */,
+				EE89811D19D2DBFE00E4F0B6 /* Boards */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

@@ -9,19 +9,25 @@ class ofApp : public ofBaseApp{
 public:
     void setup();
     void update();
+    void drawMarker();
     void draw();
     void writeSettings();
-
     void keyPressed(int key);
     void mousePressed(int x, int y, int button);
     
+    ofxXmlSettings settings;
     float width;
     float height;
+    
     string syphonName;
-    
-    
-    ofxXmlSettings settings;
     ofxSyphonServer syphonServer;
+    
+    ofImage markerImage;
+    int markerId;
+    float markerX;
+    float markerY;
+    float markerWidth;
+    float markerHeight;
     
     ofTrueTypeFont font;
 		
