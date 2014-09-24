@@ -59,8 +59,6 @@
 		EE89810019D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE8980F319D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm */; };
 		EE89810A19D2D25E00E4F0B6 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE8980CE19D2D23300E4F0B6 /* Syphon.framework */; };
 		EE89811019D2D4FE00E4F0B6 /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89810E19D2D4FE00E4F0B6 /* constants.cpp */; };
-		EE89811419D2DB8500E4F0B6 /* testBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89811219D2DB8500E4F0B6 /* testBoard.cpp */; };
-		EE89811719D2DBAF00E4F0B6 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89811519D2DBAF00E4F0B6 /* board.cpp */; };
 		EE89811A19D2DBCB00E4F0B6 /* marker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE89811819D2DBCB00E4F0B6 /* marker.cpp */; };
 /* End PBXBuildFile section */
 
@@ -190,10 +188,6 @@
 		EE8980F319D2D23300E4F0B6 /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
 		EE89810E19D2D4FE00E4F0B6 /* constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
 		EE89810F19D2D4FE00E4F0B6 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		EE89811219D2DB8500E4F0B6 /* testBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testBoard.cpp; sourceTree = "<group>"; };
-		EE89811319D2DB8500E4F0B6 /* testBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testBoard.h; sourceTree = "<group>"; };
-		EE89811519D2DBAF00E4F0B6 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
-		EE89811619D2DBAF00E4F0B6 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = board.h; sourceTree = "<group>"; };
 		EE89811819D2DBCB00E4F0B6 /* marker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marker.cpp; sourceTree = "<group>"; };
 		EE89811919D2DBCB00E4F0B6 /* marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marker.h; sourceTree = "<group>"; };
 		EFDDF1A86CE5C1107EFF3873 /* json_tool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = json_tool.h; path = ../../../addons/ofxJSON/libs/jsoncpp/src/json_tool.h; sourceTree = SOURCE_ROOT; };
@@ -618,10 +612,6 @@
 		EE89811D19D2DBFE00E4F0B6 /* Boards */ = {
 			isa = PBXGroup;
 			children = (
-				EE89811519D2DBAF00E4F0B6 /* board.cpp */,
-				EE89811619D2DBAF00E4F0B6 /* board.h */,
-				EE89811219D2DB8500E4F0B6 /* testBoard.cpp */,
-				EE89811319D2DB8500E4F0B6 /* testBoard.h */,
 				EE89811819D2DBCB00E4F0B6 /* marker.cpp */,
 				EE89811919D2DBCB00E4F0B6 /* marker.h */,
 			);
@@ -742,14 +732,12 @@
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				EE89811019D2D4FE00E4F0B6 /* constants.cpp in Sources */,
 				960D20B191346612D5C05A6A /* ofxTCPClient.cpp in Sources */,
-				EE89811419D2DB8500E4F0B6 /* testBoard.cpp in Sources */,
 				125506CD3E5F428AAFE5CC65 /* ofxTCPManager.cpp in Sources */,
 				66CA411C5A9664E27326BF36 /* ofxTCPServer.cpp in Sources */,
 				E2564CF7DDB3713772BB682E /* ofxUDPManager.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				EE8980F919D2D23300E4F0B6 /* SyphonNameboundClient.m in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
-				EE89811719D2DBAF00E4F0B6 /* board.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,

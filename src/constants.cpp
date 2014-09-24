@@ -38,6 +38,9 @@ const float f8Short = 1700*factor;
 const float f9Long = 4300*factor;
 const float f9Short = 1700*factor;
 
+const float surfacesLong[10] = {f0Long, f1Long, f2Long, f3Long, f4Long, f5Long, f6Long, f7Long, f8Long, f9Long};
+const float surfacesShort[10] = {f0Short, f1Short, f2Short, f3Short, f4Short, f5Short, f6Short, f7Short, f8Short, f9Short};
+
 const float f0MarkerWidth = 700*factor;
 const float f0MarkerHeight = 700*factor;
 const float f1MarkerWidth = 700*factor;

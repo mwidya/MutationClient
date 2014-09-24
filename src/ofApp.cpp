@@ -1,24 +1,34 @@
 #include "ofApp.h"
 #include "constants.h"
-#include "ofxXmlSettings.h"
+
+void ofApp::writeSettings(){
+    
+    for (int i = 0; i<10; i++) {
+        settings.setValue("settings:width", surfacesLong[i]);
+        settings.setValue("settings:height", surfacesShort[i]);
+        settings.setValue("settings:syphon_name", "f"+ofToString(i));
+        settings.saveFile("settings"+ofToString(i)+".xml"); //puts settings.xml file in the bin/data folder
+    }
+    
+}
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 
     ofSetDataPathRoot("../Resources/data/");
     
-    /*
-     ofxXmlSettings settings;
-     settings.setValue("settings:width", f0Long);
-     settings.setValue("settings:height", f0Short);
-     settings.setValue("settings:syphon_name", "f0");
-     settings.saveFile("settings.xml"); //puts settings.xml file in the bin/data folder*/
+    //writeSettings();
     
-    ofxXmlSettings settings;
-    settings.loadFile("../settings.xml");
-    width = settings.getValue("settings:width", 100.0);
-    height = settings.getValue("settings:height", 100.0);
-    syphonName = settings.getValue("settings:syphon_name", "...");
+    for (int i = 0; i<10; i++) {
+        bool loaded = settings.loadFile("../../../../settings"+ofToString(i)+".xml");
+        width = settings.getValue("settings:width", 100.0);
+        height = settings.getValue("settings:height", 100.0);
+        syphonName = settings.getValue("settings:syphon_name", "...");
+        
+        if (loaded) {
+            break;
+        }
+    }
     
     ofSetWindowShape(width, height);
     

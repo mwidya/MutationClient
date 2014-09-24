@@ -46,6 +46,9 @@ extern const float f8Short;
 extern const float f9Long;
 extern const float f9Short;
 
+extern const float surfacesLong[10];
+extern const float surfacesShort[10];
+
 extern const float f0MarkerWidth;
 extern const float f0MarkerHeight;
 extern const float f1MarkerWidth;
