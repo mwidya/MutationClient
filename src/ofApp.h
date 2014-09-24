@@ -3,11 +3,14 @@
 #include "ofMain.h"
 #include "ofxSyphonServer.h"
 #include "ofxXmlSettings.h"
+#include "ofxNetwork.h"
+#include "ofxJSONElement.h"
 
 class ofApp : public ofBaseApp{
 
 public:
     void setup();
+    void setupTcp();
     void update();
     void draw();
     void writeSettings();
@@ -27,10 +30,6 @@ public:
     float markerY;
     float markerWidth;
     float markerHeight;
-    
-    
-    
-    ofTrueTypeFont font;
 	
 	
     
@@ -38,4 +37,11 @@ public:
     ofPlanePrimitive plane;
     ofMaterial material;
     ofLight pointLight;
+    
+    
+    
+    
+    ofxTCPClient tcpClient;
+    int deltaTime = 0;
+    int connectTime = 0;
 };

@@ -8,11 +8,6 @@
 
 #include "constants.h"
 
-//#define IP "169.254.102.35"
-//#define IP "127.0.0.1"
-#define IP "10.0.0.9"
-#define PORT 12333
-
 //const float factor = 0.1f;
 const float factor = 0.2f;
 

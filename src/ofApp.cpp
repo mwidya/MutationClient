@@ -12,6 +12,7 @@ void ofApp::writeSettings(){
         settings.setValue("settings:markerY", markerYs[i]);
         settings.setValue("settings:markerWidth", markerWidths[i]);
         settings.setValue("settings:markerHeight", markerHeights[i]);
+        
         settings.saveFile("settings"+ofToString(i)+".xml"); //puts settings.xml file in the bin/data folder
         
     }
@@ -49,10 +50,6 @@ void ofApp::setup(){
     
     
     
-    
-    font.loadFont("vag.ttf", 30);
-    
-    
     offsetZ = 0.0f;//-800.0f*factor;
     
     plane.set(width, height);
@@ -60,20 +57,49 @@ void ofApp::setup(){
     material.setShininess( 120 );
 	material.setSpecularColor(ofColor(0, 0, 0, 255));
     
-//    ofSetSmoothLighting(true);
+    ofSetSmoothLighting(true);
     pointLight.setDiffuseColor( ofFloatColor(19.f/255.f,94.f/255.f,77.f/255.f)  );
     pointLight.setSpecularColor( ofFloatColor(18.f/255.f,150.f/255.f,135.f/255.f));
+    
+    
+    
+    setupTcp();
+    
+}
+
+void ofApp::setupTcp(){
+    tcpClient.setup(IP, PORT);
+    tcpClient.setMessageDelimiter("\n");
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    if (tcpClient.isConnected())
+    {
+        string str = tcpClient.receive();
+        
+        if( str.length() > 0 )
+        {
+            
+//            parseJSONString(str);
+        }
+    }
+    else
+    {
+        deltaTime = ofGetElapsedTimeMillis() - connectTime;
+		if( deltaTime > 5000 ){
+			setupTcp();
+			connectTime = ofGetElapsedTimeMillis();
+		}
+	}
 
 }
 
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    
     ofClear(0);
     
     ofEnableDepthTest();
@@ -119,10 +145,17 @@ void ofApp::draw(){
     
     syphonServer.publishScreen();
     
-    ofDrawBitmapString("framerate: " + ofToString(ofGetFrameRate()), ofGetWidth()-140, 10);
+    ofDrawBitmapString("Syphon Server: " + syphonName, width-150, 15);
     
-    font.drawString("Syphon Server: " + syphonName, 0, height);
-
+    ofDrawBitmapString("framerate: " + ofToString(ofGetFrameRate()), ofGetWidth()-150, height-15);
+    string tcpString = "";
+    if (tcpClient.isConnected()) {
+        tcpString = "TCP client is connected to ip " + ofToString(tcpClient.getIP()) + " at port: " + ofToString(tcpClient.getPort());
+    }
+    else{
+        tcpString = "TCP client couldn't connect to ip " + ofToString(IP) + " at port: " + ofToString(PORT);
+    }
+    ofDrawBitmapString(tcpString, 10, height-15);
 }
 
 //--------------------------------------------------------------
