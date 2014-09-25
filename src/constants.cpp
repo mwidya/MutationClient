@@ -19,10 +19,10 @@ const float f5f6Distance = 11100*factor;
 const float f8f9Distance = 6000*factor;
 const float f0Long = 4300*factor;
 const float f0Short = 1700*factor;
-const float f1Long = 3000*factor;
+const float f1Long = 4300*factor;
 const float f1Short = 1700*factor;
 const float f2Long = 3950*factor;
-const float f2Short = 3000*factor;
+const float f2Short = 4300*factor;
 const float f3Long = 3000*factor;
 const float f3Short = 1700*factor;
 const float f4Long = 3000*factor;
@@ -38,8 +38,9 @@ const float f8Short = 1700*factor;
 const float f9Long = 4300*factor;
 const float f9Short = 1700*factor;
 
-const float surfacesLong[10] = {f0Long, f1Long, f2Long, f3Long, f4Long, f5Long, f6Long, f7Long, f8Long, f9Long};
-const float surfacesShort[10] = {f0Short, f1Short, f2Short, f3Short, f4Short, f5Short, f6Short, f7Short, f8Short, f9Short};
+// f2 has to be switched between long and short
+const float surfacesLong[10] = {f0Long, f1Long, f2Short, f3Long, f4Long, f5Long, f6Long, f7Long, f8Long, f9Long};
+const float surfacesShort[10] = {f0Short, f1Short, f2Long, f3Short, f4Short, f5Short, f6Short, f7Short, f8Short, f9Short};
 
 const float markerIds[10] = {691, 268, 581, 761, 528, 286, 484, 99, 222, 903};
 
@@ -69,23 +70,23 @@ const float markerHeights[10] = {f0MarkerHeight, f1MarkerHeight, f2MarkerHeight,
 
 const float f0MarkerX = 100*factor;
 const float f0MarkerY = 100*factor;
-const float f1MarkerX = 100*factor;
+const float f1MarkerX = 3500*factor;
 const float f1MarkerY = 100*factor;
-const float f2MarkerX = 100*factor;
+const float f2MarkerX = 3500*factor;
 const float f2MarkerY = 100*factor;
 const float f3MarkerX = 100*factor;
 const float f3MarkerY = 100*factor;
-const float f4MarkerX = 100*factor;
+const float f4MarkerX = 2200*factor;
 const float f4MarkerY = 100*factor;
 const float f5MarkerX = 100*factor;
 const float f5MarkerY = 100*factor;
-const float f6MarkerX = 100*factor;
+const float f6MarkerX = 3500*factor;
 const float f6MarkerY = 100*factor;
-const float f7MarkerX = 100*factor;
+const float f7MarkerX = 3500*factor;
 const float f7MarkerY = 100*factor;
 const float f8MarkerX = 100*factor;
 const float f8MarkerY = 100*factor;
-const float f9MarkerX = 100*factor;
+const float f9MarkerX = 3500*factor;
 const float f9MarkerY = 100*factor;
 
 const float markerXs[10] = {f0MarkerX, f1MarkerX, f2MarkerX, f3MarkerX, f4MarkerX, f5MarkerX, f6MarkerX, f7MarkerX, f8MarkerX, f9MarkerX};
