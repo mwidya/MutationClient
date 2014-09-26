@@ -5,6 +5,7 @@
 #include "ofxXmlSettings.h"
 #include "ofxNetwork.h"
 #include "ofxJSONElement.h"
+#include "ofxOsc.h"
 
 class ofApp : public ofBaseApp{
 
@@ -52,5 +53,9 @@ public:
     string event;
     int aMarkerId;
     
+    ofxOscReceiver receiver;
+    
     float lightPosX;
+    
+    
 };

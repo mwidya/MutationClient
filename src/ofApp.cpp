@@ -68,6 +68,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     setupTcp();
     
+    receiver.setup(PORT);
 }
 
 void ofApp::setupTcp(){
@@ -120,6 +121,18 @@ void ofApp::update(){
 			connectTime = ofGetElapsedTimeMillis();
 		}
 	}
+    
+    while(receiver.hasWaitingMessages()){
+    
+        ofxOscMessage m;
+		receiver.getNextMessage(&m);
+        
+		// check for mouse moved message
+		if(m.getAddress() == "/mouse/position"){
+			// both the arguments are int32's
+			lightPosX = m.getArgAsFloat(0);
+		}
+    }
 
 }
 
