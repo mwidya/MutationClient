@@ -52,14 +52,17 @@ void ofApp::setup(){
     
     offsetZ = 0.0f;
     
+    float grayAttenuation = 0.0f;
+    ofSetGlobalAmbientColor(ofColor(245*grayAttenuation,224*grayAttenuation,253*grayAttenuation));
+    
     plane.set(width, height);
     plane.setPosition(width*.5f, height*.5f, 0);
-    material.setShininess( 120 );
-	material.setSpecularColor(ofColor(0, 0, 0, 255));
     
     ofSetSmoothLighting(true);
-    pointLight.setDiffuseColor( ofFloatColor(19.f/255.f,94.f/255.f,77.f/255.f)  );
-    pointLight.setSpecularColor( ofFloatColor(18.f/255.f,150.f/255.f,135.f/255.f));
+    diffuseLight.setDiffuseColor(ofFloatColor(1));
+    
+    material.setShininess( 120 );
+	material.setSpecularColor(ofFloatColor(1,0,0));
     
     
     ofSetVerticalSync(true);
@@ -73,6 +76,30 @@ void ofApp::setupTcp(){
     
 }
 
+ofVec2f ofApp::normalizedPointToScreenPoint(ofVec2f normalizedPoint){
+    ofVec2f point;
+    
+    point.x = normalizedPoint.x * ofGetWidth();
+    point.y = normalizedPoint.y * ofGetHeight();
+    
+    return point;
+}
+
+void ofApp::parseJSONString(string str){
+    
+    jsonElement = ofxJSONElement(str);
+
+    lightPosX = jsonElement["lightPosX"].asFloat();
+    
+    /*event = jsonElement["event"].asString();
+    aMarkerId = jsonElement["id"].asInt();
+    float x = jsonElement["x"].asFloat();
+    float y = jsonElement["y"].asFloat();
+    
+    screenPoint = normalizedPointToScreenPoint(ofVec2f(x, y));*/
+    
+}
+
 //--------------------------------------------------------------
 void ofApp::update(){
     if (tcpClient.isConnected())
@@ -82,8 +109,7 @@ void ofApp::update(){
         if( str.length() > 0 )
         {
             cout << "str = " << str << endl;
-            offsetZ = ofToFloat(str);
-//            parseJSONString(str);
+            parseJSONString(str);
         }
     }
     else
@@ -97,7 +123,6 @@ void ofApp::update(){
 
 }
 
-
 //--------------------------------------------------------------
 void ofApp::draw(){
     
@@ -106,12 +131,14 @@ void ofApp::draw(){
     ofEnableDepthTest();
     ofEnableLighting();
     
-    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z);
-    pointLight.setPosition(plane.getPosition().x,
-                           plane.getPosition().y,
-                           plane.getPosition().z + sin(offsetZ*.5f)*plane.getHeight()*1.5);
-    pointLight.lookAt(plane);
-    pointLight.enable();
+    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
+    diffuseLight.setPosition(plane.getPosition().x,
+                           plane.getPosition().y + cos(ofGetElapsedTimef())*10000*factor,
+                           plane.getPosition().z + sin(ofGetElapsedTimef())*10000*factor + offsetZ);
+    diffuseLight.lookAt(plane);
+    diffuseLight.enable();
+    
+    offsetZ = 0.0f;
     
 //    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
     
@@ -119,8 +146,10 @@ void ofApp::draw(){
     
     ofFill();
     ofSetColor(255);
-    plane.draw();
     
+    plane.draw();
+    diffuseLight.draw();
+
     material.end();
     
     ofDisableLighting();
@@ -144,9 +173,9 @@ void ofApp::draw(){
     
     syphonServer.publishScreen();
     
-    ofDrawBitmapString("Syphon Server: " + syphonName, width-150, 15);
-    
-    ofDrawBitmapString("framerate: " + ofToString(ofGetFrameRate()), ofGetWidth()-150, height-15);
+    ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-20-20);
+    ofDrawBitmapString("Light Pos X: " + ofToString(lightPosX),  10, height-20-20-20);
+    ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-20);
     string tcpString = "";
     if (tcpClient.isConnected()) {
         tcpString = "TCP client is connected to ip " + ofToString(tcpClient.getIP()) + " at port: " + ofToString(tcpClient.getPort());
@@ -154,15 +183,31 @@ void ofApp::draw(){
     else{
         tcpString = "TCP client couldn't connect to ip " + ofToString(IP) + " at port: " + ofToString(PORT);
     }
-    ofDrawBitmapString(tcpString, 10, height-15);
+    ofDrawBitmapString(tcpString, width-470, height-20);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if (key==OF_KEY_UP) {
+        offsetZ++;
+    }
+    if (key==OF_KEY_DOWN) {
+        offsetZ--;
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
 }
+
+void ofApp::mouseDragged(int x, int y, int button){
+}
+
+void ofApp::exit(){
+    tcpClient.close();
+    cout << "tcpClient closed." << endl;
+}
+
+
+

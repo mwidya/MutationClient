@@ -16,6 +16,11 @@ public:
     void writeSettings();
     void keyPressed(int key);
     void mousePressed(int x, int y, int button);
+    void mouseDragged(int x, int y, int button);
+    void exit();
+    
+    ofVec2f normalizedPointToScreenPoint(ofVec2f);
+    void parseJSONString(string str);
     
     ofxXmlSettings settings;
     float width;
@@ -36,12 +41,16 @@ public:
     float offsetZ;
     ofPlanePrimitive plane;
     ofMaterial material;
-    ofLight pointLight;
-    
-    
-    
+    ofLight diffuseLight;
     
     ofxTCPClient tcpClient;
     int deltaTime = 0;
     int connectTime = 0;
+    
+    ofxJSONElement jsonElement;
+    ofVec2f screenPoint;
+    string event;
+    int aMarkerId;
+    
+    float lightPosX;
 };
