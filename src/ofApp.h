@@ -55,7 +55,8 @@ public:
     
     ofxOscReceiver receiver;
     
-    float lightPosX;
+    ofVec3f position;
+    ofVec3f lightPosition;
     
     
 };

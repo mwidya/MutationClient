@@ -91,9 +91,9 @@ void ofApp::parseJSONString(string str){
     
     jsonElement = ofxJSONElement(str);
 
-    lightPosX = jsonElement["lightPosX"].asFloat();
+    /*lightPosition.x = jsonElement["lightPosX"].asFloat();
     
-    /*event = jsonElement["event"].asString();
+    event = jsonElement["event"].asString();
     aMarkerId = jsonElement["id"].asInt();
     float x = jsonElement["x"].asFloat();
     float y = jsonElement["y"].asFloat();
@@ -128,10 +128,14 @@ void ofApp::update(){
         ofxOscMessage m;
 		receiver.getNextMessage(&m);
         
-		// check for mouse moved message
-		if(m.getAddress() == "/diffuseLight/positionX"){
-			// both the arguments are int32's
-			lightPosX = m.getArgAsFloat(0);
+		if(m.getAddress() == "/diffuseLight/position"){
+			lightPosition = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
+		}
+        
+        string s = syphonName+"/position";
+		if(m.getAddress() == s){
+            position = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
+            cout << "position = " << position << endl;
 		}
     }
 
@@ -145,10 +149,16 @@ void ofApp::draw(){
     ofEnableDepthTest();
     ofEnableLighting();
     
-    plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
-    diffuseLight.setPosition(diffuseLight.getPosition().x,
-                           plane.getPosition().y + cos(ofGetElapsedTimef())*12000*factor,
-                           diffuseLight.getPosition().z + offsetZ);
+    ofPushMatrix();
+    ofTranslate(width*.5f, height*.5);
+    
+    plane.setPosition(0, 0, 0 + offsetZ);
+    
+//    if (syphonName=="f2") {
+        diffuseLight.setPosition(0,
+                                 position.x - lightPosition.x,
+                                 diffuseLight.getPosition().z + offsetZ);
+//    }
     
     diffuseLight.lookAt(plane);
     diffuseLight.enable();
@@ -166,6 +176,8 @@ void ofApp::draw(){
     diffuseLight.draw();
 
     material.end();
+    
+    ofPopMatrix();
     
     ofDisableLighting();
     ofDisableDepthTest();
@@ -189,7 +201,7 @@ void ofApp::draw(){
     syphonServer.publishScreen();
     
     ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-20-20);
-    ofDrawBitmapString("Light Pos X: " + ofToString(lightPosX),  10, height-20-20-20);
+    ofDrawBitmapString("Light Pos X: " + ofToString(lightPosition.x),  10, height-20-20-20);
     ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-20);
     string tcpString = "";
     if (tcpClient.isConnected()) {
