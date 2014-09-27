@@ -60,6 +60,7 @@ void ofApp::setup(){
     
     ofSetSmoothLighting(true);
     diffuseLight.setDiffuseColor(ofFloatColor(1));
+    diffuseLight.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + 3400*factor);
     
     material.setShininess( 120 );
 	material.setSpecularColor(ofFloatColor(1,0,0));
@@ -128,7 +129,7 @@ void ofApp::update(){
 		receiver.getNextMessage(&m);
         
 		// check for mouse moved message
-		if(m.getAddress() == "/mouse/position"){
+		if(m.getAddress() == "/diffuseLight/positionX"){
 			// both the arguments are int32's
 			lightPosX = m.getArgAsFloat(0);
 		}
@@ -145,9 +146,10 @@ void ofApp::draw(){
     ofEnableLighting();
     
     plane.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + offsetZ);
-    diffuseLight.setPosition(plane.getPosition().x,
-                           plane.getPosition().y + cos(ofGetElapsedTimef())*10000*factor,
-                           plane.getPosition().z + sin(ofGetElapsedTimef())*10000*factor + offsetZ);
+    diffuseLight.setPosition(diffuseLight.getPosition().x,
+                           plane.getPosition().y + cos(ofGetElapsedTimef())*12000*factor,
+                           diffuseLight.getPosition().z + offsetZ);
+    
     diffuseLight.lookAt(plane);
     diffuseLight.enable();
     
