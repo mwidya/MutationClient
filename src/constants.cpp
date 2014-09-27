@@ -92,7 +92,7 @@ const float f9MarkerY = 100*factor;
 const float markerXs[10] = {f0MarkerX, f1MarkerX, f2MarkerX, f3MarkerX, f4MarkerX, f5MarkerX, f6MarkerX, f7MarkerX, f8MarkerX, f9MarkerX};
 const float markerYs[10] = {f0MarkerY, f1MarkerY, f2MarkerY, f3MarkerY, f4MarkerY, f5MarkerY, f6MarkerY, f7MarkerY, f8MarkerY, f9MarkerY};
 
-
+const int oscPorts[10] = {6000,6000,6000,6001,6000,6000,6002,6001,6000,6002};
 
 
 

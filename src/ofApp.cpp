@@ -12,6 +12,7 @@ void ofApp::writeSettings(){
         settings.setValue("settings:markerY", markerYs[i]);
         settings.setValue("settings:markerWidth", markerWidths[i]);
         settings.setValue("settings:markerHeight", markerHeights[i]);
+        settings.setValue("settings:oscPort", oscPorts[i]);
         
         settings.saveFile("settings"+ofToString(i)+".xml"); //puts settings.xml file in the bin/data folder
         
@@ -24,7 +25,7 @@ void ofApp::setup(){
 
     ofSetDataPathRoot("../Resources/data/");
     
-//    writeSettings();
+    writeSettings();
     
     for (int i = 0; i<10; i++) {
         bool loaded = settings.loadFile("../../../../settings"+ofToString(i)+".xml");
@@ -36,6 +37,7 @@ void ofApp::setup(){
         markerY = settings.getValue("settings:markerY", 0);
         markerWidth = settings.getValue("settings:markerWidth", 0);
         markerHeight = settings.getValue("settings:markerHeight", 0);
+        oscPort = settings.getValue("settings:oscPort", 6999);
         if (loaded) {
             break;
         }
@@ -69,7 +71,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     setupTcp();
     
-    receiver.setup(PORT);
+    receiver.setup(oscPort);
 }
 
 void ofApp::setupTcp(){
@@ -210,6 +212,7 @@ void ofApp::draw(){
     else{
         tcpString = "TCP client couldn't connect to ip " + ofToString(IP) + " at port: " + ofToString(PORT);
     }
+    
     ofDrawBitmapString(tcpString, width-470, height-20);
 }
 

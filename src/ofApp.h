@@ -58,5 +58,6 @@ public:
     ofVec3f position;
     ofVec3f lightPosition;
     
+    int oscPort;
     
 };
