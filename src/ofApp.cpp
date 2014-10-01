@@ -21,6 +21,36 @@ void ofApp::writeSettings(){
     
 }
 
+void ofApp::setupTcp(){
+    //    tcpClient.setup(IP, PORT);
+    //    tcpClient.setMessageDelimiter("\n");
+    
+}
+
+ofVec2f ofApp::normalizedPointToScreenPoint(ofVec2f normalizedPoint){
+    ofVec2f point;
+    
+    point.x = normalizedPoint.x * ofGetWidth();
+    point.y = normalizedPoint.y * ofGetHeight();
+    
+    return point;
+}
+
+void ofApp::parseJSONString(string str){
+    
+    jsonElement = ofxJSONElement(str);
+    
+    /*lightPosition.x = jsonElement["lightPosX"].asFloat();
+     
+     event = jsonElement["event"].asString();
+     aMarkerId = jsonElement["id"].asInt();
+     float x = jsonElement["x"].asFloat();
+     float y = jsonElement["y"].asFloat();
+     
+     screenPoint = normalizedPointToScreenPoint(ofVec2f(x, y));*/
+    
+}
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
@@ -60,11 +90,12 @@ void ofApp::setup(){
     ofSetGlobalAmbientColor(ofColor(245*grayAttenuation,224*grayAttenuation,253*grayAttenuation));
     
     plane.set(width, height);
+    plane.rotate(-90, 1, 0, 0);
     plane.setPosition(width*.5f, height*.5f, 0);
     
     ofSetSmoothLighting(true);
     diffuseLight.setDiffuseColor(ofFloatColor(1));
-    diffuseLight.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z + 3400*factor);
+    diffuseLight.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z);
     
     material.setShininess( 120 );
 	material.setSpecularColor(ofFloatColor(1,0,0));
@@ -74,36 +105,6 @@ void ofApp::setup(){
     setupTcp();
     
     receiver.setup(oscPort);
-}
-
-void ofApp::setupTcp(){
-//    tcpClient.setup(IP, PORT);
-//    tcpClient.setMessageDelimiter("\n");
-    
-}
-
-ofVec2f ofApp::normalizedPointToScreenPoint(ofVec2f normalizedPoint){
-    ofVec2f point;
-    
-    point.x = normalizedPoint.x * ofGetWidth();
-    point.y = normalizedPoint.y * ofGetHeight();
-    
-    return point;
-}
-
-void ofApp::parseJSONString(string str){
-    
-    jsonElement = ofxJSONElement(str);
-
-    /*lightPosition.x = jsonElement["lightPosX"].asFloat();
-    
-    event = jsonElement["event"].asString();
-    aMarkerId = jsonElement["id"].asInt();
-    float x = jsonElement["x"].asFloat();
-    float y = jsonElement["y"].asFloat();
-    
-    screenPoint = normalizedPointToScreenPoint(ofVec2f(x, y));*/
-    
 }
 
 //--------------------------------------------------------------
@@ -138,7 +139,12 @@ void ofApp::update(){
         
         string s = syphonName+"/position";
 		if(m.getAddress() == s){
+            cout << "m = " << m.getAddress() << endl;
+            cout << "m = " << m.getRemoteIp() << endl;
+            cout << "m = " << m.getRemotePort() << endl;
+            
             position = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
+//            plane.setPosition(position.x, position.y, position.z);
             cout << "position = " << position << endl;
 		}
     }
@@ -153,11 +159,28 @@ void ofApp::draw(){
     ofEnableDepthTest();
     ofEnableLighting();
     
+    
     ofPushMatrix();
     ofTranslate(width*.5f, height*.5);
     
-    plane.setPosition(0, 0, 0 + offsetZ);
     
+    ofRotateX(90);
+    
+    plane.setPosition(0, 0, 0 + offsetZ);
+	material.begin();
+    
+    ofFill();
+    ofSetColor(255);
+    plane.draw();
+    
+    material.end();
+    ofPopMatrix();
+    
+    ofPushMatrix();
+    ofTranslate(width*.5f, height*.5);
+    
+    
+    ofRotateX(-90);
     switch (anOrientation) {
         case FLOOR:
             // ...
@@ -182,16 +205,8 @@ void ofApp::draw(){
     
 //    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
     
-	material.begin();
     
-    ofFill();
-    ofSetColor(255);
-    
-    plane.draw();
     diffuseLight.draw();
-
-    material.end();
-    
     ofPopMatrix();
     
     ofDisableLighting();
@@ -217,7 +232,7 @@ void ofApp::draw(){
     
     int linePitch = 20;
     
-    ofDrawBitmapString("Surface Pos: " + ofToString(position.x)+", "+ofToString(position.y)+", "+ofToString(position.z),  10, height-(linePitch*4));
+    ofDrawBitmapString("Plane Pos: " + ofToString(position.x)+", "+ofToString(position.y)+", "+ofToString(position.z),  10, height-(linePitch*4));
     ofDrawBitmapString("Light Pos: " + ofToString(lightPosition.x)+", "+ofToString(lightPosition.y)+", "+ofToString(lightPosition.z),  10, height-(linePitch*3));
     ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-(linePitch*2));
     string tcpString = "";
