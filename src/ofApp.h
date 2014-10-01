@@ -11,14 +11,10 @@ class ofApp : public ofBaseApp{
 
 public:
     void setup();
-    void setupTcp();
     void update();
     void draw();
     void writeSettings();
-    void keyPressed(int key);
-    void mousePressed(int x, int y, int button);
-    void mouseDragged(int x, int y, int button);
-    void exit();
+    void readSettings();
     
     ofVec2f normalizedPointToScreenPoint(ofVec2f);
     void parseJSONString(string str);
@@ -37,29 +33,17 @@ public:
     float markerWidth;
     float markerHeight;
 	
-	
-    
-    float offsetZ;
     ofPlanePrimitive plane;
     ofMaterial material;
     ofLight diffuseLight;
     
     int anOrientation;
     
-    ofxTCPClient tcpClient;
-    int deltaTime = 0;
-    int connectTime = 0;
-    
-    ofxJSONElement jsonElement;
-    ofVec2f screenPoint;
-    string event;
-    int aMarkerId;
-    
     ofxOscReceiver receiver;
     
-    ofVec3f position;
-    ofVec3f lightPosition;
-    
     int oscPort;
+    
+    ofVec3f planePosition;
+    ofVec3f diffuseLightPosition;
     
 };

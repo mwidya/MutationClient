@@ -21,43 +21,7 @@ void ofApp::writeSettings(){
     
 }
 
-void ofApp::setupTcp(){
-    //    tcpClient.setup(IP, PORT);
-    //    tcpClient.setMessageDelimiter("\n");
-    
-}
-
-ofVec2f ofApp::normalizedPointToScreenPoint(ofVec2f normalizedPoint){
-    ofVec2f point;
-    
-    point.x = normalizedPoint.x * ofGetWidth();
-    point.y = normalizedPoint.y * ofGetHeight();
-    
-    return point;
-}
-
-void ofApp::parseJSONString(string str){
-    
-    jsonElement = ofxJSONElement(str);
-    
-    /*lightPosition.x = jsonElement["lightPosX"].asFloat();
-     
-     event = jsonElement["event"].asString();
-     aMarkerId = jsonElement["id"].asInt();
-     float x = jsonElement["x"].asFloat();
-     float y = jsonElement["y"].asFloat();
-     
-     screenPoint = normalizedPointToScreenPoint(ofVec2f(x, y));*/
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::setup(){
-
-    ofSetDataPathRoot("../Resources/data/");
-    
-    writeSettings();
-    
+void ofApp::readSettings(){
     for (int i = 0; i<10; i++) {
         bool loaded = settings.loadFile("../../../../settings"+ofToString(i)+".xml");
         width = settings.getValue("settings:width", 100.0);
@@ -75,199 +39,97 @@ void ofApp::setup(){
         }
     }
     
+}
+
+//--------------------------------------------------------------
+void ofApp::setup(){
+
+    ofSetDataPathRoot("../Resources/data/");
+    
+//    writeSettings();
+    readSettings();
+    
     ofSetWindowShape(width, height);
     
     syphonServer.setName(syphonName);
     
+    ofSetVerticalSync(true);
+    
+    receiver.setup(oscPort);
+    
     string path = "images/marker_" + ofToString(markerId) + ".png";
     markerImage.loadImage(path);
     
-    
-    
-    offsetZ = 0.0f;
-    
-    float grayAttenuation = 0.0f;
-    ofSetGlobalAmbientColor(ofColor(245*grayAttenuation,224*grayAttenuation,253*grayAttenuation));
-    
-    plane.set(width, height);
-    plane.rotate(-90, 1, 0, 0);
-    plane.setPosition(width*.5f, height*.5f, 0);
+    ofSetGlobalAmbientColor(ofFloatColor(0.5f,0.5f, 0.5f));
     
     ofSetSmoothLighting(true);
-    diffuseLight.setDiffuseColor(ofFloatColor(1));
-    diffuseLight.setPosition(plane.getPosition().x, plane.getPosition().y, plane.getPosition().z);
+    diffuseLight.setDiffuseColor(ofFloatColor(19.f/255.f,94.f/255.f,77.f/255.f));
     
     material.setShininess( 120 );
-	material.setSpecularColor(ofFloatColor(1,0,0));
+	material.setSpecularColor(ofFloatColor(1));
     
     
-    ofSetVerticalSync(true);
-    setupTcp();
     
-    receiver.setup(oscPort);
+    plane.set(width, height);
+//    plane.rotate(-90, 0, 1, 0);
 }
 
-//--------------------------------------------------------------
 void ofApp::update(){
-    if (tcpClient.isConnected())
-    {
-        string str = tcpClient.receive();
-        
-        if( str.length() > 0 )
-        {
-            cout << "str = " << str << endl;
-            parseJSONString(str);
-        }
-    }
-    else
-    {
-        deltaTime = ofGetElapsedTimeMillis() - connectTime;
-		if( deltaTime > 5000 ){
-			setupTcp();
-			connectTime = ofGetElapsedTimeMillis();
-		}
-	}
     
     while(receiver.hasWaitingMessages()){
-    
+        
         ofxOscMessage m;
 		receiver.getNextMessage(&m);
         
-		if(m.getAddress() == "/diffuseLight/position"){
-			lightPosition = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
-		}
-        
         string s = syphonName+"/position";
 		if(m.getAddress() == s){
-            cout << "m = " << m.getAddress() << endl;
-            cout << "m = " << m.getRemoteIp() << endl;
-            cout << "m = " << m.getRemotePort() << endl;
-            
-            position = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
-//            plane.setPosition(position.x, position.y, position.z);
-            cout << "position = " << position << endl;
+            planePosition = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
+            plane.setPosition(planePosition);
+		}
+        
+		if(m.getAddress() == "/diffuseLight/position"){
+            diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
+            diffuseLight.setPosition(diffuseLightPosition);
 		}
     }
-
 }
 
-//--------------------------------------------------------------
 void ofApp::draw(){
     
     ofClear(0);
     
+    ofPushMatrix();
+    
     ofEnableDepthTest();
     ofEnableLighting();
-    
-    
-    ofPushMatrix();
-    ofTranslate(width*.5f, height*.5);
-    
-    
-    ofRotateX(90);
-    
-    plane.setPosition(0, 0, 0 + offsetZ);
 	material.begin();
     
-    ofFill();
-    ofSetColor(255);
-    plane.draw();
-    
-    material.end();
-    ofPopMatrix();
-    
-    ofPushMatrix();
-    ofTranslate(width*.5f, height*.5);
-    
-    
-    ofRotateX(-90);
-    switch (anOrientation) {
-        case FLOOR:
-            // ...
-            break;
-        case EAST:
-            diffuseLight.setPosition(0,
-                                     position.x - lightPosition.x,
-                                     diffuseLight.getPosition().z + offsetZ);
-            break;
-        case WEST:
-            // ...
-            break;
-            
-        default:
-            break;
-    }
+    ofTranslate(width*.5f-planePosition.x, height*.5f-planePosition.y);
+//    ofRotateY(90);
     
     diffuseLight.lookAt(plane);
     diffuseLight.enable();
-    
-    offsetZ = 0.0f;
-    
-//    plane.rotate(cos(ofGetElapsedTimef()*.6), 1.0, 0.0, 0.0);
-    
-    
+    plane.draw();
     diffuseLight.draw();
+    
     ofPopMatrix();
     
+    material.end();
     ofDisableLighting();
     ofDisableDepthTest();
-    ofFill();
-    
-    
-    
-    
-    
-    
-    ofSetColor(255, 255, 255);
-    float frame = 80*factor;
-    ofRect(markerX-(frame/2), markerY-(frame/2), markerWidth+frame, markerHeight+frame);
-    markerImage.draw(markerX, markerY, markerWidth, markerHeight);
-    
-    
-    
-    
     
     
     syphonServer.publishScreen();
     
     int linePitch = 20;
     
-    ofDrawBitmapString("Plane Pos: " + ofToString(position.x)+", "+ofToString(position.y)+", "+ofToString(position.z),  10, height-(linePitch*4));
-    ofDrawBitmapString("Light Pos: " + ofToString(lightPosition.x)+", "+ofToString(lightPosition.y)+", "+ofToString(lightPosition.z),  10, height-(linePitch*3));
+    ofDrawBitmapString("Plane Pos: " + ofToString(plane.getPosition().x)+", "+ofToString(plane.getPosition().y)+", "+ofToString(plane.getPosition().z),  10, height-(linePitch*4));
+    ofDrawBitmapString("Light Pos: " + ofToString(diffuseLight.getPosition().x)+", "+ofToString(diffuseLight.getPosition().y)+", "+ofToString(diffuseLight.getPosition().z),  10, height-(linePitch*3));
     ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-(linePitch*2));
     string tcpString = "";
-    if (tcpClient.isConnected()) {
-        tcpString = "TCP client is connected to ip " + ofToString(tcpClient.getIP()) + " at port: " + ofToString(tcpClient.getPort());
-    }
-    else{
-        tcpString = "TCP client couldn't connect to ip " + ofToString(IP) + " at port: " + ofToString(PORT);
-    }
     
     ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-linePitch);
     ofDrawBitmapString(tcpString, width-470, height-linePitch);
-}
-
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-    if (key==OF_KEY_UP) {
-        offsetZ++;
-    }
-    if (key==OF_KEY_DOWN) {
-        offsetZ--;
-    }
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-void ofApp::mouseDragged(int x, int y, int button){
-}
-
-void ofApp::exit(){
-    tcpClient.close();
-    cout << "tcpClient closed." << endl;
 }
 
 
