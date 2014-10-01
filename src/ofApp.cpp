@@ -75,8 +75,8 @@ void ofApp::setup(){
 }
 
 void ofApp::setupTcp(){
-    tcpClient.setup(IP, PORT);
-    tcpClient.setMessageDelimiter("\n");
+//    tcpClient.setup(IP, PORT);
+//    tcpClient.setMessageDelimiter("\n");
     
 }
 
@@ -202,9 +202,10 @@ void ofApp::draw(){
     
     syphonServer.publishScreen();
     
-    ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-20-20);
-    ofDrawBitmapString("Light Pos X: " + ofToString(lightPosition.x),  10, height-20-20-20);
-    ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-20);
+    int linePitch = 20;
+    
+    ofDrawBitmapString("Light Pos: " + ofToString(lightPosition.x)+", "+ofToString(lightPosition.y)+", "+ofToString(lightPosition.z),  10, height-(linePitch*3));
+    ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-(linePitch*2));
     string tcpString = "";
     if (tcpClient.isConnected()) {
         tcpString = "TCP client is connected to ip " + ofToString(tcpClient.getIP()) + " at port: " + ofToString(tcpClient.getPort());
@@ -213,7 +214,8 @@ void ofApp::draw(){
         tcpString = "TCP client couldn't connect to ip " + ofToString(IP) + " at port: " + ofToString(PORT);
     }
     
-    ofDrawBitmapString(tcpString, width-470, height-20);
+    ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-linePitch);
+    ofDrawBitmapString(tcpString, width-470, height-linePitch);
 }
 
 //--------------------------------------------------------------
