@@ -90,13 +90,13 @@ void ofApp::update(){
 		if(m.getAddress() == "/diffuseLight/position"){
             switch (orientation) {
                 case FLOOR:
-                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(2)+planePosition.y, -(m.getArgAsFloat(1)-planePosition.y));
-                    break;
-                case WEST:
-                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
+                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(0)-planePosition.x)+planePosition.y, -(m.getArgAsFloat(1)-planePosition.y));
                     break;
                 case EAST:
                     diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
+                    break;
+                case WEST:
+                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
                     break;
                     
                 default:
@@ -138,7 +138,7 @@ void ofApp::draw(){
     
     ofDrawBitmapString("Plane Pos: " + ofToString(plane.getPosition().x)+", "+ofToString(plane.getPosition().y)+", "+ofToString(plane.getPosition().z),  10, height-(linePitch*4));
     ofDrawBitmapString("Light Pos: " + ofToString(diffuseLight.getPosition().x)+", "+ofToString(diffuseLight.getPosition().y)+", "+ofToString(diffuseLight.getPosition().z),  10, height-(linePitch*3));
-    ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-(linePitch*2));
+    ofDrawBitmapString("Syphon Server: " + syphonName + " | Orientation: " + ofToString(orientation) , 10, height-(linePitch*2));
     string tcpString = "";
     
     ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), 10, height-linePitch);
