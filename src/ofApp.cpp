@@ -89,6 +89,9 @@ void ofApp::update(){
         
 		if(m.getAddress() == "/diffuseLight/position"){
             switch (orientation) {
+                case FLOOR:
+                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(2)+planePosition.y, -(m.getArgAsFloat(1)-planePosition.y));
+                    break;
                 case EAST:
                     diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
                     break;
