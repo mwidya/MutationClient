@@ -104,7 +104,7 @@ enum{
     EAST,
     WEST,
     
-} orientaion;
+};
 
 extern const int orientations[10];
 

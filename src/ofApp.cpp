@@ -33,7 +33,7 @@ void ofApp::readSettings(){
         markerWidth = settings.getValue("settings:markerWidth", 0);
         markerHeight = settings.getValue("settings:markerHeight", 0);
         oscPort = settings.getValue("settings:oscPort", 6999);
-        anOrientation = settings.getValue("settings:orientation", -1);
+        orientation = settings.getValue("settings:orientation", -1);
         if (loaded) {
             break;
         }
@@ -88,7 +88,14 @@ void ofApp::update(){
 		}
         
 		if(m.getAddress() == "/diffuseLight/position"){
-            diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
+            switch (orientation) {
+                case EAST:
+                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
+                    break;
+                    
+                default:
+                    break;
+            }
             diffuseLight.setPosition(diffuseLightPosition);
 		}
     }

@@ -37,7 +37,7 @@ public:
     ofMaterial material;
     ofLight diffuseLight;
     
-    int anOrientation;
+    int orientation;
     
     ofxOscReceiver receiver;
     
