@@ -13,6 +13,7 @@ void ofApp::writeSettings(){
         settings.setValue("settings:markerWidth", markerWidths[i]);
         settings.setValue("settings:markerHeight", markerHeights[i]);
         settings.setValue("settings:oscPort", oscPorts[i]);
+        settings.setValue("settings:orientation", orientations[i]);
         
         settings.saveFile("settings"+ofToString(i)+".xml"); //puts settings.xml file in the bin/data folder
         
@@ -38,6 +39,7 @@ void ofApp::setup(){
         markerWidth = settings.getValue("settings:markerWidth", 0);
         markerHeight = settings.getValue("settings:markerHeight", 0);
         oscPort = settings.getValue("settings:oscPort", 6999);
+        anOrientation = settings.getValue("settings:orientation", -1);
         if (loaded) {
             break;
         }
@@ -156,11 +158,22 @@ void ofApp::draw(){
     
     plane.setPosition(0, 0, 0 + offsetZ);
     
-//    if (syphonName=="f2") {
-        diffuseLight.setPosition(0,
-                                 position.x - lightPosition.x,
-                                 diffuseLight.getPosition().z + offsetZ);
-//    }
+    switch (anOrientation) {
+        case FLOOR:
+            // ...
+            break;
+        case EAST:
+            diffuseLight.setPosition(0,
+                                     position.x - lightPosition.x,
+                                     diffuseLight.getPosition().z + offsetZ);
+            break;
+        case WEST:
+            // ...
+            break;
+            
+        default:
+            break;
+    }
     
     diffuseLight.lookAt(plane);
     diffuseLight.enable();
@@ -204,6 +217,7 @@ void ofApp::draw(){
     
     int linePitch = 20;
     
+    ofDrawBitmapString("Surface Pos: " + ofToString(position.x)+", "+ofToString(position.y)+", "+ofToString(position.z),  10, height-(linePitch*4));
     ofDrawBitmapString("Light Pos: " + ofToString(lightPosition.x)+", "+ofToString(lightPosition.y)+", "+ofToString(lightPosition.z),  10, height-(linePitch*3));
     ofDrawBitmapString("Syphon Server: " + syphonName, 10, height-(linePitch*2));
     string tcpString = "";

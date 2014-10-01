@@ -99,4 +99,13 @@ extern const float markerYs[10];
 
 extern const int oscPorts[10];
 
+enum{
+    FLOOR,
+    EAST,
+    WEST,
+    
+} orientaion;
+
+extern const int orientations[10];
+
 #endif /* defined(__Mutation_080__constants__) */

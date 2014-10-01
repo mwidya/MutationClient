@@ -94,5 +94,5 @@ const float markerYs[10] = {f0MarkerY, f1MarkerY, f2MarkerY, f3MarkerY, f4Marker
 
 const int oscPorts[10] = {6000,6000,6000,6001,6000,6000,6002,6001,6000,6002};
 
-
+const int orientations[10] = {WEST, EAST, FLOOR, WEST, EAST, WEST, EAST, FLOOR, WEST, EAST};
 

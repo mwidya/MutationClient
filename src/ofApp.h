@@ -44,6 +44,8 @@ public:
     ofMaterial material;
     ofLight diffuseLight;
     
+    int anOrientation;
+    
     ofxTCPClient tcpClient;
     int deltaTime = 0;
     int connectTime = 0;
