@@ -46,4 +46,6 @@ public:
     ofVec3f planePosition;
     ofVec3f diffuseLightPosition;
     
+    bool markerOn;
+    
 };

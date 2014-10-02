@@ -46,6 +46,8 @@ void ofApp::setup(){
 
     ofSetDataPathRoot("../Resources/data/");
     
+    markerOn = false;
+    
 //    writeSettings();
     readSettings();
     
@@ -109,6 +111,11 @@ void ofApp::update(){
             }
             diffuseLight.setPosition(diffuseLightPosition);
 		}
+        
+        if(m.getAddress() == "/marker/on"){
+            markerOn = (bool)(m.getArgAsInt32(0));
+            cout << "markerOn = " << markerOn << endl;
+		}
     }
 }
 
@@ -140,6 +147,15 @@ void ofApp::draw(){
     material.end();
     ofDisableLighting();
     ofDisableDepthTest();
+    
+    
+    if (markerOn) {
+        ofSetColor(255, 255, 255);
+        float frame = 80*factor;
+        ofRect(markerX-(frame/2), markerY-(frame/2), markerWidth+frame, markerHeight+frame);
+        markerImage.draw(markerX, markerY, markerWidth, markerHeight);
+    }
+    
     
     
     syphonServer.publishScreen();
