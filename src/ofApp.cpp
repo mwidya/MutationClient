@@ -96,7 +96,12 @@ void ofApp::update(){
                     diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, m.getArgAsFloat(0)-planePosition.x);
                     break;
                 case WEST:
-                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
+                    if (syphonName=="f3") {
+                        diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x-planePosition.z, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
+                    }else{
+                        diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
+                        
+                    }
                     break;
                     
                 default:
@@ -117,7 +122,12 @@ void ofApp::draw(){
     ofEnableLighting();
 	material.begin();
     
-    ofTranslate(width*.5f-planePosition.x, height*.5f-planePosition.y);
+    if (syphonName=="f3") {
+        ofTranslate(width*.5f-planePosition.x, height*.5f-planePosition.y, -planePosition.z);
+    }else{
+        ofTranslate(width*.5f-planePosition.x, height*.5f-planePosition.y);
+        
+    }
 //    ofRotateY(90);
     
     diffuseLight.lookAt(plane);
