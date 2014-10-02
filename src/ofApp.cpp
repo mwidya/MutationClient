@@ -60,7 +60,7 @@ void ofApp::setup(){
     string path = "images/marker_" + ofToString(markerId) + ".png";
     markerImage.loadImage(path);
     
-    ofSetGlobalAmbientColor(ofFloatColor(0.5f,0.5f, 0.5f));
+    ofSetGlobalAmbientColor(ofFloatColor(0.0f));
     
     ofSetSmoothLighting(true);
     diffuseLight.setDiffuseColor(ofFloatColor(19.f/255.f,94.f/255.f,77.f/255.f));
