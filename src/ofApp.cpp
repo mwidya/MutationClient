@@ -93,7 +93,7 @@ void ofApp::update(){
                     diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(0)-planePosition.x)+planePosition.y, -(m.getArgAsFloat(1)-planePosition.y));
                     break;
                 case EAST:
-                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, m.getArgAsFloat(1), m.getArgAsFloat(0)-planePosition.x);
+                    diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, m.getArgAsFloat(0)-planePosition.x);
                     break;
                 case WEST:
                     diffuseLightPosition = ofVec3f(m.getArgAsFloat(2)+planePosition.x, -(m.getArgAsFloat(1))+planePosition.y*2, -(m.getArgAsFloat(0)-planePosition.x));
